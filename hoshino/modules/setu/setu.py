@@ -16,7 +16,14 @@ setu_folder = R.img('setu/').path
 
 def setu_gener():
     while True:
-        filelist = os.listdir(setu_folder)
+        # filelist = os.listdir(setu_folder)
+        filelist = []
+        for root, dirs, files in os.walk(setu_folder, topdown=False):
+            file_list = os.listdir(root)
+            for name in file_list:
+                if name == '.DS_Store':
+                    continue
+                filelist.append(os.path.join(root, name).replace(f'{setu_folder}\\', ''))
         random.shuffle(filelist)
         for filename in filelist:
             if os.path.isfile(os.path.join(setu_folder, filename)):
