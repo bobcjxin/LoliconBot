@@ -42,6 +42,7 @@ MODULES_ON = {
     'pcrclanbattle',
     'priconne',
     'setu',
+    'headimg_generator',
     # 'translate',
     # 'twitter',
 }
