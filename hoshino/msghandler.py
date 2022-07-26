@@ -10,7 +10,7 @@ async def handle_message(bot, event: CQEvent, _):
 
     for t in trigger.chain:
         for service_func in t.find_handler(event):
-            print(event)
+            print('cj %s' % event)
             if service_func.only_to_me and not event['to_me']:
                 continue  # not to me, ignore.
 
