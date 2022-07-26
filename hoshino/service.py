@@ -199,6 +199,7 @@ class Service:
 
 
     def on_prefix(self, *prefix, only_to_me=False) -> Callable:
+        # 前缀匹配
         if len(prefix) == 1 and not isinstance(prefix[0], str):
             prefix = prefix[0]
         def deco(func) -> Callable:
@@ -213,6 +214,7 @@ class Service:
 
 
     def on_fullmatch(self, *word, only_to_me=False) -> Callable:
+        # 完全匹配
         if len(word) == 1 and not isinstance(word[0], str):
             word = word[0]
         def deco(func) -> Callable:
@@ -242,6 +244,7 @@ class Service:
 
 
     def on_suffix(self, *suffix, only_to_me=False) -> Callable:
+        # 后缀匹配
         if len(suffix) == 1 and not isinstance(suffix[0], str):
             suffix = suffix[0]
         def deco(func) -> Callable:
@@ -270,6 +273,7 @@ class Service:
 
 
     def on_rex(self, rex: Union[str, re.Pattern], only_to_me=False, normalize=True) -> Callable:
+        # 全文正则匹配
         if isinstance(rex, str):
             rex = re.compile(rex)
         def deco(func) -> Callable:
