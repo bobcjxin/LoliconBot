@@ -182,7 +182,6 @@ class Service:
                 gl[g].append(sid)
         return gl
 
-
     def on_message(self, event='group') -> Callable:
         def deco(func) -> Callable:
             @wraps(func)
@@ -197,7 +196,6 @@ class Service:
             return self.bot.on_message(event)(wrapper)
         return deco
 
-
     def on_prefix(self, *prefix, only_to_me=False) -> Callable:
         # 前缀匹配
         if len(prefix) == 1 and not isinstance(prefix[0], str):
@@ -211,7 +209,6 @@ class Service:
                     self.logger.error(f'Failed to add prefix trigger `{p}`, expecting `str` but `{type(p)}` given!')
             return func
         return deco
-
 
     def on_fullmatch(self, *word, only_to_me=False) -> Callable:
         # 完全匹配
@@ -242,7 +239,6 @@ class Service:
             # ```
         return deco
 
-
     def on_suffix(self, *suffix, only_to_me=False) -> Callable:
         # 后缀匹配
         if len(suffix) == 1 and not isinstance(suffix[0], str):
@@ -257,8 +253,8 @@ class Service:
             return func
         return deco
 
-
     def on_keyword(self, *keywords, only_to_me=False, normalize=True) -> Callable:
+        # 关键词匹配
         if len(keywords) == 1 and not isinstance(keywords[0], str):
             keywords = keywords[0]
         def deco(func) -> Callable:
@@ -270,7 +266,6 @@ class Service:
                     self.logger.error(f'Failed to add keyword trigger `{kw}`, expecting `str` but `{type(kw)}` given!')
             return func
         return deco
-
 
     def on_rex(self, rex: Union[str, re.Pattern], only_to_me=False, normalize=True) -> Callable:
         # 全文正则匹配
@@ -285,8 +280,8 @@ class Service:
             return func
         return deco
 
-
     def on_command(self, name, *, only_to_me=False, deny_tip=None, **kwargs) -> Callable:
+        # 多行命令，完全匹配，使用方法参考"上传作业"
         kwargs['only_to_me'] = only_to_me
 
         def deco(func) -> Callable:
@@ -318,7 +313,6 @@ class Service:
             return nonebot.on_command(name, **kwargs)(wrapper)
         return deco
 
-
     def on_natural_language(self, keywords=None, **kwargs) -> Callable:
         def deco(func) -> Callable:
             @wraps(func)
@@ -340,7 +334,6 @@ class Service:
             return nonebot.on_natural_language(keywords, **kwargs)(wrapper)
         return deco
 
-
     def scheduled_job(self, *args, **kwargs) -> Callable:
         kwargs.setdefault('timezone', pytz.timezone('Asia/Shanghai'))
         kwargs.setdefault('misfire_grace_time', 60)
@@ -358,7 +351,6 @@ class Service:
                     self.logger.exception(e)
             return nonebot.scheduler.scheduled_job(*args, **kwargs)(wrapper)
         return deco
-
 
     async def broadcast(self, msgs, TAG='', interval_time=0.5, randomiser=None):
         bot = self.bot
@@ -378,7 +370,6 @@ class Service:
                 self.logger.error(f"群{gid} 投递{TAG}失败：{type(e)}")
                 self.logger.exception(e)
 
-
     def on_request(self, *events):
         def deco(func):
             @wraps(func)
@@ -388,8 +379,7 @@ class Service:
                 return await func(session)
             return nonebot.on_request(*events)(wrapper)
         return deco
-    
-    
+
     def on_notice(self, *events):
         def deco(func):
             @wraps(func)
