@@ -45,4 +45,5 @@ MODULES_ON = {
     'headimg_generator',
     # 'translate',
     # 'twitter',
+    'setu_renew',
 }
