@@ -18,7 +18,7 @@ async def say_sorry(bot, ev):
     await bot.send(ev, 'ごめんなさい！嘤嘤嘤(〒︿〒)')
 
 
-@sv.on_fullmatch('老婆', 'waifu', 'laopo')
+@sv.on_fullmatch('老婆', 'waifu', 'laopo', only_to_me=True)
 async def chat_waifu(bot, ev):
     if not priv.check_priv(ev, priv.SUPERUSER):
         await bot.send(ev, R.img('laopo.jpg').cqcode)
@@ -26,7 +26,7 @@ async def chat_waifu(bot, ev):
         await bot.send(ev, 'mua~')
 
 
-@sv.on_fullmatch('老公')
+@sv.on_fullmatch('老公', only_to_me=True)
 async def chat_laogong(bot, ev):
     await bot.send(ev, '你给我滚！', at_sender=True)
 
