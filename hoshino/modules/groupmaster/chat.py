@@ -58,7 +58,9 @@ async def nihaole(bot, ev):
 
 @sv.on_keyword('确实', '有一说一', 'u1s1', 'yysy')
 async def chat_queshi(bot, ctx):
-    if random.random() < 0.05:
+    n = random.random()
+    print('cj %s' % n)
+    if n < 0.05:
         await bot.send(ctx, R.img('确实.jpg').cqcode)
 
 
