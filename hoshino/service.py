@@ -183,6 +183,17 @@ class Service:
         return gl
 
     def on_message(self, event='group') -> Callable:
+        """
+        对于所有的会话都会监听，可通过event指定监听范围：
+        private	全部私聊
+        private.friend	私聊好友
+        private.group	群临时私聊
+        private.other	其他临时私聊
+        group	全部群聊
+        group.member	任意群员
+        group.admin	群管理
+        group.owner	群主
+        """
         def deco(func) -> Callable:
             @wraps(func)
             async def wrapper(ctx):
@@ -314,6 +325,7 @@ class Service:
         return deco
 
     def on_natural_language(self, keywords=None, **kwargs) -> Callable:
+        # 自然语言监听，比较高级，有空再研究
         def deco(func) -> Callable:
             @wraps(func)
             async def wrapper(session: nonebot.NLPSession):
@@ -335,6 +347,7 @@ class Service:
         return deco
 
     def scheduled_job(self, *args, **kwargs) -> Callable:
+        # 设置定时触发任务
         kwargs.setdefault('timezone', pytz.timezone('Asia/Shanghai'))
         kwargs.setdefault('misfire_grace_time', 60)
         kwargs.setdefault('coalesce', True)
@@ -353,6 +366,7 @@ class Service:
         return deco
 
     async def broadcast(self, msgs, TAG='', interval_time=0.5, randomiser=None):
+        # 和定时任务搭配的发送消息方法
         bot = self.bot
         if isinstance(msgs, (str, MessageSegment, Message)):
             msgs = (msgs, )
@@ -371,6 +385,7 @@ class Service:
                 self.logger.exception(e)
 
     def on_request(self, *events):
+        # 对于需要管理员（或你）的批才能完成的操作的监听，例如好友申请、加群申请等
         def deco(func):
             @wraps(func)
             async def wrapper(session):
@@ -381,6 +396,7 @@ class Service:
         return deco
 
     def on_notice(self, *events):
+        # 对于一些无需管理员操作的系统通知事件的监听，如退群、上传文件、被禁言、戳一戳这种消息会被归为通知事件
         def deco(func):
             @wraps(func)
             async def wrapper(session):
