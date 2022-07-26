@@ -4,7 +4,7 @@ from hoshino.typing import CQEvent
 
 @message_preprocessor
 async def handle_message(bot, event: CQEvent, _):
-    # print('cj %s' % event)
+    print('cj %s' % event)
     """
     <Event, {'post_type': 'message', 'message_type': 'private', 'time': 1658817780, 'self_id': 123233086, 'sub_type': 'friend', 'message_id': 58531960, 'user_id': 330128901, 'target_id': 123233086, 'message': [{'type': 'text', 'data': {'text': '在吗'}}], 'raw_message': '在吗', 'font': 0, 'sender': {'age': 0, 'nickname': '『 蕉の葰 』', 'sex': 'unknown', 'user_id': 330128901}, 'to_me': True}>
     <Event, {'post_type': 'message', 'message_type': 'group', 'time': 1658817832, 'self_id': 123233086, 'sub_type': 'normal', 'message': [{'type': 'text', 'data': {'text': ''}}], 'message_seq': 7607, 'raw_message': '老婆', 'user_id': 330128901, 'message_id': -846674802, 'anonymous': None, 'font': 0, 'group_id': 1103073182, 'sender': {'age': 0, 'area': '', 'card': '', 'level': '', 'nickname': '『 蕉の葰 』', 'role': 'admin', 'sex': 'unknown', 'title': '', 'user_id': 330128901}, 'to_me': True}>
