@@ -26,7 +26,7 @@ async def chat_waifu(bot, ev):
         await bot.send(ev, 'mua~')
 
 
-@sv.on_fullmatch('老公', only_to_me=True)
+@sv.on_fullmatch('老公')
 async def chat_laogong(bot, ev):
     await bot.send(ev, '你给我滚！', at_sender=True)
 
