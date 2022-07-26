@@ -4,6 +4,7 @@ from hoshino.typing import CQEvent
 
 @message_preprocessor
 async def handle_message(bot, event: CQEvent, _):
+    print('cj %s' % event)
 
     if event.detail_type != 'group':
         return
