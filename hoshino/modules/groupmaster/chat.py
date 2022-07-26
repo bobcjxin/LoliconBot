@@ -58,16 +58,16 @@ async def nihaole(bot, ev):
 
 @sv.on_keyword('确实', '有一说一', 'u1s1', 'yysy')
 async def chat_queshi(bot, ctx):
+    print('11111u1s1')
     n = random.random()
-    print('cj %s' % n)
-    if n < 1:
+    if n < 0.05:
         await bot.send(ctx, R.img('确实.jpg').cqcode)
 
 
 @sv.on_keyword('会战')
 async def chat_clanba(bot, ctx):
     if random.random() < 0.02:
-        await bot.send(ctx, R.img('我的天啊你看看都几度了.jpg').cqcode)
+        await bot.send(ctx, R.img('我的天啊你看看都几点了.jpg').cqcode)
 
 
 @sv.on_keyword('内鬼')
@@ -83,5 +83,5 @@ nyb_player = f'''{R.img('newyearburst.gif').cqcode}
 
 @sv.on_keyword('春黑', '新黑')
 async def new_year_burst(bot, ev):
-    if random.random() < 0.02:
+    if random.random() < 1:
         await bot.send(ev, nyb_player)
