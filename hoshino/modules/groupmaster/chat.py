@@ -60,7 +60,7 @@ async def nihaole(bot, ev):
 async def chat_queshi(bot, ctx):
     n = random.random()
     print('cj %s' % n)
-    if n < 0.05:
+    if n < 1:
         await bot.send(ctx, R.img('确实.jpg').cqcode)
 
 
