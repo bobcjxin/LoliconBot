@@ -106,9 +106,12 @@ def check_lmt(uid, num, gid):
 		return 0, ''
 	if group_list_check(gid) != 0:
 		if group_list_check(gid) == 1:
-			return 1, f'此功能启用了白名单模式,本群未在白名单中,请联系维护组解决'
+			# return 1, f'此功能启用了白名单模式,本群未在白名单中,请联系维护组解决'
+			print(f'此功能启用了白名单模式,本群{gid}未在白名单中,请联系维护组解决')
 		else:
-			return 1, f'此功能已在本群禁用,可能因为人数超限或之前有滥用行为,请联系维护组解决'
+			# return 1, f'此功能已在本群禁用,可能因为人数超限或之前有滥用行为,请联系维护组解决'
+			print(f'此功能已在本群{gid}禁用,可能因为人数超限或之前有滥用行为,请联系维护组解决')
+		return 0, ''  # 不给用的群不提示有这个功能
 	if not tlmt.check(uid):
 		return 1, f"您今天已经冲过{get_config('base', 'daily_max')}次了,请明天再来~"
 	if num > 1 and (get_config('base', 'daily_max') - tlmt.get_num(uid)) < num:
@@ -168,7 +171,7 @@ async def send_setu(bot, ev):
 		msg = '需要超级用户权限\n发送"帮助 pcr娱乐"获取操作指令'
 	elif len(args) == 0:
 		msg = '无效参数\n发送"帮助 pcr娱乐"获取操作指令'
-	elif args[0] == '设置' and len(args) >= 3:  # setu set module on [group]
+	elif args[0] == '设置' and len(args) >= 3:  # setu set module on [group] 指定特定群的色图开启功能
 		if len(args) >= 4 and args[3].isdigit():
 			gid = int(args[3])
 		if args[1] == 'lolicon':
@@ -189,7 +192,7 @@ async def send_setu(bot, ev):
 			value = int(args[2])
 		else:
 			value = None
-		if key and (not value is None):
+		if key and (value is not None):
 			set_group_config(gid, key, value)
 			msg = '设置成功！当前设置值如下:\n'
 			msg += f'群/{gid} : 设置项/{key} = 值/{value}'
@@ -222,7 +225,7 @@ async def send_setu(bot, ev):
 		elif args[1] in ["删除", "移除"]:
 			mode = 1
 		else:
-			await bot.finish(ev,"操作错误，应为新增/删除其一")
+			await bot.finish(ev, "操作错误，应为新增/删除其一")
 		group_id = args[2]
 		statuscode, failedgid = set_group_list(group_id, 1, mode)
 		if statuscode == 403:
@@ -255,7 +258,7 @@ async def send_setu(bot, ev):
 	await bot.send(ev, msg)
 
 
-@sv.on_rex(r'二[次刺][元猿螈][涩瑟][图圖]|[来來发發给給]((?P<num>\d+)|(?:.*))[张張个個幅点點份丶](?P<keyword>.*?)[涩瑟][图圖]')
+@sv.on_rex(r'不够[涩瑟]|[涩瑟][图圖]|[来來发發给給]((?P<num>\d+)|(?:.*))[张張个個幅点點份丶](?P<keyword>.*?)[涩瑟][图圖]')
 async def send_search_setu(bot, ev):
 	uid = ev['user_id']
 	gid = ev['group_id']
