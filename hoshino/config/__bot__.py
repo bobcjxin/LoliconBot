@@ -46,5 +46,5 @@ MODULES_ON = {
     # 'translate',
     # 'twitter',
     'setu_renew',
-    'SetuSorce'
+    'SetuScore'
 }
