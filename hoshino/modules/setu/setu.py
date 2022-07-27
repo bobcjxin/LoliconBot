@@ -14,6 +14,7 @@ _flmt = FreqLimiter(5)
 sv = Service('setu', manage_priv=priv.SUPERUSER, enable_on_default=True, visible=False)
 setu_folder = R.img('setu/').path
 
+
 def setu_gener():
     while True:
         # filelist = os.listdir(setu_folder)
@@ -35,7 +36,7 @@ def get_setu():
     return setu_gener.__next__()
 
 
-@sv.on_rex(r'不够[涩瑟色]|^[涩瑟色]图$|再来[点份张]|看过了')
+@sv.on_rex(r'不够色|色图|再来[点份张]|看过了')
 async def setu(bot, ev):
     """随机叫一份涩图，对每个用户有冷却时间"""
     uid = ev['user_id']

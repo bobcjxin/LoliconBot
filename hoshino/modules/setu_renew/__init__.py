@@ -7,8 +7,8 @@ from nonebot import scheduler
 import hoshino
 
 HELP_MSG = '''
-来 [num] 张 [keyword] 涩/色/瑟图 : 来num张keyword的涩图(不指定数量与关键字发送一张随机涩图)
-涩/色/瑟图 : 发送一张随机涩图
+来 [num] 张 [keyword] 涩/瑟图 : 来num张keyword的涩图(不指定数量与关键字发送一张随机涩图)
+涩/瑟图 : 发送一张随机涩图
 提取图片pid ： 获取指定id的p站图片，没有时发送链接
 本日涩图排行榜 [page] : 获取[第page页]p站排行榜(需开启acggov模块)
 看涩图 [n] 或 [start end] : 获取p站排行榜[第n名/从start名到end名]色图(需开启acggov模块)
@@ -255,7 +255,7 @@ async def send_setu(bot, ev):
 	await bot.send(ev, msg)
 
 
-@sv.on_rex(r'^二[次刺][元猿螈][色涩瑟][图圖]$|^[来來发發给給]((?P<num>\d+)|(?:.*))[张張个個幅点點份丶](?P<keyword>.*?)[色涩瑟][图圖]$')
+@sv.on_rex(r'二[次刺][元猿螈][涩瑟][图圖]|[来來发發给給]((?P<num>\d+)|(?:.*))[张張个個幅点點份丶](?P<keyword>.*?)[涩瑟][图圖]')
 async def send_search_setu(bot, ev):
 	uid = ev['user_id']
 	gid = ev['group_id']
@@ -316,7 +316,7 @@ async def send_search_setu(bot, ev):
 			await asyncio.sleep(1)
 
 
-@sv.on_rex(r'^[本每]日[涩色瑟]图排行榜\D*(\d*)')
+@sv.on_rex(r'[本每]日[涩瑟]图排行榜\D*(\d*)')
 async def send_ranking(bot, ev):
 	gid = ev['group_id']
 	page = ev['match'].group(1)
@@ -333,7 +333,7 @@ async def send_ranking(bot, ev):
 	await send_msg(msg, ev)
 
 
-@sv.on_prefix(('看涩图', '看色图', '看瑟图'))
+@sv.on_prefix(('看涩图', '看瑟图'))
 async def send_ranking_setu(bot, ev):
 	uid = ev['user_id']
 	gid = ev['group_id']
