@@ -1,0 +1,3 @@
+[submodule "hoshino/modules/SetuScore"]
+	path = hoshino/modules/SetuScore
+	url = git@github.com:bobcjxin/SetuScore.git
