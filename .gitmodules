@@ -1,3 +1,6 @@
 [submodule "hoshino/modules/SetuScore"]
 	path = hoshino/modules/SetuScore
 	url = git@github.com:bobcjxin/SetuScore.git
+[submodule "hoshino/modules/I_have_a_friend"]
+	path = hoshino/modules/I_have_a_friend
+	url = git@github.com:bobcjxin/I_have_a_friend.git
