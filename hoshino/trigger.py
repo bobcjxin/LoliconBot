@@ -149,6 +149,9 @@ class RexTrigger(BaseTrigger):
                 text = event.norm_text if sf.normalize_text else event.plain_text
                 match = rex.search(text)
                 if match:
+                    print(event.norm_text)
+                    print(sf.normalize_text)
+                    print(event.plain_text)
                     print(match.group())
                     event["match"] = match
                     yield sf
