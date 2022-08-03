@@ -29,10 +29,12 @@ class PrefixTrigger(BaseTrigger):
         self.trie = pygtrie.CharTrie()
 
     def add(self, prefix: str, sf: "ServiceFunc"):
+        """
+        prefix: 匹配前缀词
+        prefix_cht: 匹配词转繁体
+        self.trie: 词与方法的对应关系列表
+        """
         prefix_cht = zhconv.convert(prefix, "zh-hant")
-        print(prefix)
-        print(prefix_cht)
-        print(self.trie)
         if prefix in self.trie:
             self.trie[prefix].append(sf)
             if prefix_cht != prefix:
@@ -146,6 +148,7 @@ class RexTrigger(BaseTrigger):
             for sf in sfs:
                 text = event.norm_text if sf.normalize_text else event.plain_text
                 match = rex.search(text)
+                print(match.group())
                 if match:
                     event["match"] = match
                     yield sf
