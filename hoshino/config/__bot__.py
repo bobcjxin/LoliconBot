@@ -47,5 +47,5 @@ MODULES_ON = {
     # 'twitter',
     'setu_renew',
     'SetuScore',
-    'my_friend_says'
+    'I_have_a_friend'
 }
