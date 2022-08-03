@@ -29,7 +29,10 @@ class PrefixTrigger(BaseTrigger):
         self.trie = pygtrie.CharTrie()
 
     def add(self, prefix: str, sf: "ServiceFunc"):
-        prefix_cht = zhconv.convert(prefix, "zh-hans")
+        prefix_cht = zhconv.convert(prefix, "zh-hant")
+        print(prefix)
+        print(prefix_cht)
+        print(self.trie)
         if prefix in self.trie:
             self.trie[prefix].append(sf)
             if prefix_cht != prefix:
