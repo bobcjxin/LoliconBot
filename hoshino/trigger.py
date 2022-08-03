@@ -148,8 +148,8 @@ class RexTrigger(BaseTrigger):
             for sf in sfs:
                 text = event.norm_text if sf.normalize_text else event.plain_text
                 match = rex.search(text)
-                print(match.group())
                 if match:
+                    print(match.group())
                     event["match"] = match
                     yield sf
 
