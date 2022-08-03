@@ -63,7 +63,7 @@ class ServiceFunc:
         self.sv = sv
         self.func = func
         self.only_to_me = only_to_me
-        self.normalize_text = normalize_text
+        self.normalize_text = normalize_text    # 如果设为True，会对匹配的字符串进行类似小写化的处理
         self.__name__ = func.__name__
 
     def __call__(self, *args, **kwargs):
