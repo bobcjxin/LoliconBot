@@ -4,3 +4,6 @@
 [submodule "hoshino/modules/I_have_a_friend"]
 	path = hoshino/modules/I_have_a_friend
 	url = git@github.com:bobcjxin/I_have_a_friend.git
+[submodule "hoshino/modules/LocalSetu"]
+	path = hoshino/modules/LocalSetu
+	url = git@github.com:bobcjxin/LocalSetu.git
