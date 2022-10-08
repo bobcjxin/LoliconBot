@@ -48,5 +48,6 @@ MODULES_ON = {
     'setu_renew',
     'SetuScore',
     'I_have_a_friend',
-    'LocalSetu'
+    'LocalSetu',
+    'novelai'
 }
