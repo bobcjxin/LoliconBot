@@ -12,12 +12,13 @@ import io
 from io import BytesIO
 from PIL import Image
 import traceback
+from .config import TOKEN
 
 
 ####替换成自己的API URL
 word2img_url = "http://yourIP:port/got_image?tags="
 img2img_url = "http://yourIP:port/got_image2image"
-token = "&token=your token"
+token = "&token=%s" % TOKEN
 
 sv_help='''
 [ai绘图+关键词] 关键词仅支持英文，用逗号隔开
