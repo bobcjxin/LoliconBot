@@ -7,50 +7,47 @@ import base64
 from loguru import logger
 import re
 import json
-from hoshino import aiorequests
+from hoshino import aiorequests, priv
 import io
 from io import BytesIO
 from PIL import Image
 
 ####替换成自己的API URL
-word2img_url = ""
-img2img_url = ""
-
-sv = Service('AI_image_gen', bundle='娱乐', help_='''
-生成色图 
-'''.strip())
+word2img_url = "http://yourIP:port/got_image?tags="
+img2img_url = "http://yourIP:port/got_image2image"
+token = "&token=your token"
 
 sv_help='''
-使用NAI API生成二次元图
-使用方法：生成色图 <tags>[&r18=0|&shape=Portrait/Landscape/Square|&scale=11|&seed=1234]
-<tags>为必选参数  [ ]为可选参数，其中：
-tags 图片含有的要素，使用大括号{}括住某些tag来增加此tag的权重，括号越多权重越高如{{{loli}}}
-r18 字面意思，默认为0,开启为1 请勿在公共群开启
-shape 分别为竖图、横图、方图 默认为横图
-scale 细节等级，建议为11-24，太高会变奇怪
-seed 随机种子，任意数字。相同的种子可能会有相同的结
+[ai绘图+关键词] 关键词仅支持英文，用逗号隔开
+[以图绘图+关键字+图片] 注意图片尽量长宽都在765像素一下，不然会被狠狠地压缩
+逗号分隔tag,%20为空格转义,加0代表增加权重,可以加很多个,有消息称加入英语句子识别(你们自己测)
+可选参数
+&shape=Portrait/Landscape/Square 默认Portrait竖图           
+&scale=11                        默认11,只建议11-24,细节会提高,太高了会过曝
+&seed=1111111                    随机生成不建议用,如果想在返回的原图上修改,在响应头里找到seed，请注意seed一脉单传,seed不会变,也不能倒退
 '''.strip()
 
+sv = Service(
+    name="二次元ai绘图",  # 功能名
+    use_priv=priv.NORMAL,  # 使用权限
+    manage_priv=priv.SUPERUSER,  # 管理权限
+    visible=True,  # 可见性
+    enable_on_default=True,  # 默认启用
+    bundle="娱乐",  # 分组归类
+    help_=sv_help  # 帮助说明
+)
 
-@sv.on_fullmatch('生成色图帮助')
+@sv.on_fullmatch('ai绘图帮助')
 async def gen_pic_help(bot, ev: CQEvent):
-    # mes = f'使用NAI API生成二次元图\n'
-    # mes += f'使用方法：生成色图 <tags>[&r18=0|&shape=Portrait/Landscape/Square|&scale=11|&seed=1234]\n'
-    # mes += f'<tags>为必选参数  [ ]为可选参数，其中：\n'
-    # mes += f'tags 图片含有的要素，使用大括号{{}}括住某些tag来增加此tag的权重，如' + '{{{'+'loli' + '}}}\n'
-    # mes += f'r18 字面意思，默认为0,开启为1 请勿在公共群开启\n'
-    # mes += f'shape 分别为竖图、横图、方图 默认为横图\n'
-    # mes += f'scale 细节等级，建议为11-24，太高会变奇怪\n'
-    # mes += f'seed 随机种子，任意数字。相同的种子可能会有相同的结果'
     await bot.send(ev, sv_help)
 
 
-@sv.on_prefix(('生成色图'))
+@sv.on_prefix(('ai绘图'))
 async def gen_pic(bot, ev: CQEvent):
     try:
-        await bot.send(ev, f"正在生成", at_sender=True)
+        await bot.send(ev, f"正在生成，请稍后...", at_sender=True)
         text = ev.message.extract_plain_text()
-        get_url = word2img_url + text
+        get_url = word2img_url + text + token
         # image = await aiorequests.get(get_url)
         res = await aiorequests.get(get_url)
         image = await res.content
@@ -69,14 +66,13 @@ thumbSize=(768,768)
 @sv.on_prefix(('以图生图'))
 async def gen_pic_from_pic(bot, ev: CQEvent):
     try:
-        await bot.send(ev, f"正在生成", at_sender=True)
+        await bot.send(ev, f"正在生成，请稍后...", at_sender=True)
         tag = ev.message.extract_plain_text()
         if tag == "":
             url = ev.message[0]["data"]["url"]
         else:
             url = ev.message[1]["data"]["url"]
-        post_url = img2img_url + (f"?tags={tag}" if tag != "" else "")
-        # ret = re.match(r"\[CQ:image,file=(.*),url=(.*)\]", str(ev.message))
+        post_url = img2img_url + (f"?tags={tag}" if tag != "" else "") + token
         image = Image.open(io.BytesIO(requests.get(url, timeout=20).content))
         image = image.convert('RGB')
         if (image.size[0] > image.size[1]):
