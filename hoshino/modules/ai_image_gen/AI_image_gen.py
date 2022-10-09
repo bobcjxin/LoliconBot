@@ -55,8 +55,6 @@ async def gen_pic(bot, ev: CQEvent):
         # image = await aiorequests.get(get_url)
         res = await aiorequests.get(get_url)
         image = await res.content
-        print(res)
-        print(image)
         load_data = json.loads(re.findall('{"steps".+?}', str(image))[0])
         image_b64 = 'base64://' + str(base64.b64encode(image).decode())
         mes = f"[CQ:image,file={image_b64}]\n"
