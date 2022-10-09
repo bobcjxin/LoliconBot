@@ -12,12 +12,12 @@ import io
 from io import BytesIO
 from PIL import Image
 import traceback
-from .config import TOKEN
+from .config import TOKEN, HOST
 
 
 ####替换成自己的API URL
-word2img_url = "http://yourIP:port/got_image?tags="
-img2img_url = "http://yourIP:port/got_image2image"
+word2img_url = "%s/got_image?tags=" % HOST
+img2img_url = "%s/got_image2image" % HOST
 token = "&token=%s" % TOKEN
 
 sv_help='''
