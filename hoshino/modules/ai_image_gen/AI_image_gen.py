@@ -51,6 +51,7 @@ async def gen_pic(bot, ev: CQEvent):
         await bot.send(ev, f"正在生成，请稍后...", at_sender=True)
         text = ev.message.extract_plain_text()
         get_url = word2img_url + text + token
+        print(get_url)
         # image = await aiorequests.get(get_url)
         res = await aiorequests.get(get_url)
         image = await res.content
@@ -77,6 +78,7 @@ async def gen_pic_from_pic(bot, ev: CQEvent):
         else:
             url = ev.message[1]["data"]["url"]
         post_url = img2img_url + (f"?tags={tag}" if tag != "" else "") + token
+        print(post_url)
         image = Image.open(io.BytesIO(requests.get(url, timeout=20).content))
         image = image.convert('RGB')
         if (image.size[0] > image.size[1]):
