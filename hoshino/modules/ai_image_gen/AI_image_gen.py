@@ -11,6 +11,8 @@ from hoshino import aiorequests, priv
 import io
 from io import BytesIO
 from PIL import Image
+import traceback
+
 
 ####替换成自己的API URL
 word2img_url = "http://yourIP:port/got_image?tags="
@@ -59,6 +61,7 @@ async def gen_pic(bot, ev: CQEvent):
         mes += f'tags:{text}'
         await bot.send(ev, mes, at_sender=True)
     except:
+        traceback.print_exc()
         await bot.send(ev, "生成失败…")
 
 
@@ -92,4 +95,5 @@ async def gen_pic_from_pic(bot, ev: CQEvent):
         mes += f'tags:{tag}'
         await bot.send(ev, mes, at_sender=True)
     except:
+        traceback.print_exc()
         await bot.send(ev, "生成失败…")
