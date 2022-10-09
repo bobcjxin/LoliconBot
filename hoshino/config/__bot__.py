@@ -49,6 +49,6 @@ MODULES_ON = {
     'SetuScore',
     'I_have_a_friend',
     'LocalSetu',
-    'novelai',
+    # 'novelai',
     'ai_image_gen'
 }
